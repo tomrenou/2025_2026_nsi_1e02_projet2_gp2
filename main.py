@@ -13,6 +13,3 @@ def search_number(val,v):
     else:
         gauche = milieu + 1
     return milieu
-
-import pandas as pd
-print(pd.__version__)
