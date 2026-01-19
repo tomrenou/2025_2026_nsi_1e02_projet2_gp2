@@ -1,2 +1,2 @@
 #data
-from math import():
+import math
