@@ -1,6 +1,3 @@
 #tools
-import json
+data_lycee.to_csv("cleaned_data_lycee.csv") 
 
-def save_lycees_dict_in_json_file (lyccees):
-    with open("lyccees.json", "w") as f:
-        json.dump(lyccees, f, indent=4)

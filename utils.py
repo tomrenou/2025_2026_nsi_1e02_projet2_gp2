@@ -1,3 +1,6 @@
+import pandas as pd
+
 def make_data_frame_from_csv(csv_file):
-    ...
-    return data_frame
+    df = pd.read_csv('data.csv') 
+    return df 
+def get_departement()
