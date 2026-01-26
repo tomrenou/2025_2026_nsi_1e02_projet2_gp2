@@ -13,3 +13,6 @@ def search_number(val,v):
     else:
         gauche = milieu + 1
     return milieu
+
+def accueil(a):
+    
