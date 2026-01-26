@@ -15,5 +15,3 @@ def search_number(val,v):
             gauche = milieu + 1
     return milieu
 
-def bienvenue(b):
-    print()=texte_bienevnue
