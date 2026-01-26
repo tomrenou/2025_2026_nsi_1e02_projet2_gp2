@@ -1,4 +1,4 @@
-﻿use_data_lycee = [Rentrée scolaire;Académie;Code du département;Département;UAI;Nom de l'établissment;Code INSEE de la commune;Nom de la commune;Secteur;Type de lycée;IPS voie GT;IPS voie PRO;IPS Ensemble GT-PRO;Ecart-type de l'IPS voie GT;Ecart-type de l'IPS voie PRO]
+﻿use_data_lycee = [rentree scolaire;academie;code_departement;departement;UAI;nom_etablissment;code_INSEE_commune;nom_commune;secteur;type_lycee;IPS_voie_GT;IPS_voie_PRO;IPS_ensemble_GT-PRO;Ecart-type_IPS_voie_GT;Ecart-type_IPS_voie_PRO]
 lycees=[
 2018-2019;CRETEIL;77;SEINE-ET-MARNE;0772127U;LYCEE GENERAL ET TECHNOLOGIQUE GALILEE;77122;COMBS LA VILLE;public;LEGT;115.6;;115.6;;
 2018-2019;CRETEIL;77;SEINE-ET-MARNE;0772151V;LYCEE PROFESSIONNEL PRIVE LES SINOPLIES;77390;ROISSY EN BRIE;privé sous contrat;LP;;114.2;114.2;;
