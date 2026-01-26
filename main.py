@@ -5,7 +5,6 @@ texte_bienevnue = "Bienvenue chez Lycée & So, le site qui rend l'analyse des ly
 def search_number(val,v):
     gauche = 0
     droite = len(v) - 1
-<<<<<<< HEAD
     while gauche <= droite:
         milieu = (gauche + droite) //2
         if val == v[milieu]:
@@ -15,16 +14,6 @@ def search_number(val,v):
         else:
             gauche = milieu + 1
     return milieu
-=======
-    milieu = (gauche + droite) //2
-    if val == v[milieu]:
-        return milieu
-    elif val < v[milieu]:
-        droite = milieu - 1
-    else:
-        gauche = milieu + 1
-    return milieu
 
-def accueil(a):
-    
->>>>>>> cb093db736438444751b3d4edb3dee6d8140627b
+def bienvenue(b):
+    print()=texte_bienevnue
