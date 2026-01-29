@@ -19,4 +19,3 @@ def get_rentree_scolaire(lycees, nom_etablissement):
 def get_departement(lycees, nom_etablissement):
     departement = lycees[nom_etablissement]
     return departement
-
