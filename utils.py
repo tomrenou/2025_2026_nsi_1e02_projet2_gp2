@@ -12,6 +12,11 @@ def get_académie(lycees, nom_etablissement):
     academie = lycees[nom_etablissement]
     return academie
 
-def get_année_scolaire(lycees, nom_etablissement):
-    code_departement =  lycees[nom_etablissement]
-    return get_code_departement
+def get_rentree_scolaire(lycees, nom_etablissement):
+    rentree_scolaire = lycees[nom_etablissement]
+    return rentree_scolaire
+
+def get_departement(lycees, nom_etablissement):
+    departement = lycees[nom_etablissement]
+    return departement
+
