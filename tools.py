@@ -1,6 +1,8 @@
 #tools
-import json
+import pandas as pd 
+import numpy as np 
+print("Pandas version :", pd.__version__) 
+print("Numpy version :", np.__version__)
 
-def save_lycees_dict_in_json_file (lyccees):
-    with open("lyccees.json", "w") as f:
-        json.dump(lyccees, f, indent=4)
+
+
