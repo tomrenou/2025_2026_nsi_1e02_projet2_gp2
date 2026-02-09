@@ -126,8 +126,10 @@ class AppLycee:
             f"Taux de réussite moyen : {moyenne:.2f} %"
         )
 
+        # ➜ AFFICHAGE DU GRAPHIQUE
+        controller.afficher_graphique(self.fenetre, self.data)
 
-# Lancement du programme
+        # Lancement du programme
 fenetre = tk.Tk()
 app = AppLycee(fenetre)
 fenetre.mainloop()
