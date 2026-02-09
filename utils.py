@@ -36,3 +36,7 @@ def get_type_lycee(lycees, nom_etablissement):
     type_lycee = lycees[nom_etablissement]
     return type_lycee
 
+def get_IPS_voie_GT(lycees, nom_etablissement):
+    IPS_voie_GT = lycees[nom_etablissement]
+    return IPS_voie_GT
+
