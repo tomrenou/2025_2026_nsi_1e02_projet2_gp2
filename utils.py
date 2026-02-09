@@ -40,3 +40,21 @@ def get_IPS_voie_GT(lycees, nom_etablissement):
     IPS_voie_GT = lycees[nom_etablissement]
     return IPS_voie_GT
 
+def get_IPS_voie_PRO(lycees, nom_etablissement):
+    IPS_voie_PRO = lycees[nom_etablissement]
+    return IPS_voie_PRO
+
+def get_IPS_ensemble_GT_PRO(lycees, nom_etablissement):
+    IPS_ensemble_GT_PRO = lycees[nom_etablissement]
+    return IPS_ensemble_GT_PRO
+
+def get_ecart_type_IPS_voie_GT(lycees, nom_etablissement):
+    ecart_type_IPS_voie_GT = lycees[nom_etablissement]
+    return ecart_type_IPS_voie_GT
+
+def get_ecart_type_IPS_voie_PRO(lycees, nom_etablissement):
+    ecart_type_IPS_voie_PRO = lycees[nom_etablissement]
+    return ecart_type_IPS_voie_PRO
+
+
+
