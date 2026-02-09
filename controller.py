@@ -76,7 +76,7 @@ def afficher_graphique():
     2. Appelle la fonction de création du graphique
     """
 
-    df = charger_csv("donnees.csv")
+    df = charger_csv("fr-en-ips_lycees.csv")
 
     creer_graphique_tkinter(
         frame_graphique,
