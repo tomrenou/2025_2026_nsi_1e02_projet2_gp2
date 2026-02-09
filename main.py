@@ -1,5 +1,7 @@
 #main(code principal)
 
+
+
 texte_bienevnue = "Bienvenue chez Lycée & So, le site qui rend l'analyse des lycées beaucoup plus simple !"
 
 def search_number(val,v):
@@ -19,6 +21,7 @@ import csv
 import tkinter as tk
 from tkinter import ttk, filedialog, messagebox
 import pandas as pd
+import controller
 
 # Application Lycée & So
 class AppLycee:
