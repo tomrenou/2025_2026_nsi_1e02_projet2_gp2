@@ -22,5 +22,7 @@ def get_departement(lycees, nom_etablissement):
 
 def get_code_INSEE_commune(lycees, nom_département):
     code_INSEE_commune = lycees[nom_etablissement]
-    return 
+    return code_INSEE_commune
+
+
 
