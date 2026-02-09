@@ -22,5 +22,17 @@ def get_departement(lycees, nom_etablissement):
 
 def get_code_INSEE_commune(lycees, nom_département):
     code_INSEE_commune = lycees[nom_etablissement]
-    return 
+    return code_INSEE_commune
+
+def get_nom_commune(lycees, nom_etablissement):
+    nom_commune = lycees[nom_etablissement]
+    return nom_commune
+
+def get_secteur(lycees, nom_etablissement):
+    secteur = lycees[nom_etablissement]
+    return secteur
+
+def get_type_lycee(lycees, nom_etablissement):
+    type_lycee = lycees[nom_etablissement]
+    return type_lycee
 
