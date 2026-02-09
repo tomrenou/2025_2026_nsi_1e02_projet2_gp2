@@ -9,10 +9,7 @@ import pandas as pd
 from matplotlib.figure import Figure
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 
-
-
 # FONCTIONS DE DONNÉES
-
 
 def charger_csv(chemin_csv):
     """
@@ -21,10 +18,7 @@ def charger_csv(chemin_csv):
     """
     return pd.read_csv(chemin_csv)
 
-
-
 # FONCTION DE CRÉATION DU GRAPHIQUE
-
 
 def creer_graphique_tkinter(
     parent,
@@ -72,9 +66,7 @@ def creer_graphique_tkinter(
     canvas.draw()
     canvas.get_tk_widget().pack(fill=tk.BOTH, expand=True)
 
-
 # FONCTION LIÉE AU BOUTON
-
 
 def afficher_graphique():
     """
@@ -97,9 +89,7 @@ def afficher_graphique():
         ylabel="Ventes"
     )
 
-
 # INTERFACE GRAPHIQUE
-
 
 # Création de la fenêtre principale
 root = tk.Tk()
