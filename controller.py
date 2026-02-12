@@ -48,7 +48,7 @@ def initialiser_listes_variables():
     colonnes_categorielles = ["academie", "code_departement", "departement","nom_commune","secteur","type_lycee"]
 
     # 🔹 Colonnes numériques (pour Y)
-    colonnes_numeriques = []
+    colonnes_numeriques = ["IPS_voie_GT","IPS_voie_PRO","IPS_ensemble_GT-PRO"]
 
     combo_x["values"] = colonnes_categorielles
     combo_y["values"] = colonnes_numeriques
