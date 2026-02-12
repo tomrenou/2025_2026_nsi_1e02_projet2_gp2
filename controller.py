@@ -45,7 +45,7 @@ def initialiser_listes_variables():
         return
 
     # 🔹 Colonnes catégorielles (pour X)
-    colonnes_categorielles = []
+    colonnes_categorielles = ["academie", "code_departement", "departement","nom_commune","secteur","type_lycee"]
 
     # 🔹 Colonnes numériques (pour Y)
     colonnes_numeriques = []
