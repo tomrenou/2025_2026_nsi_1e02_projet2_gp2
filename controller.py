@@ -154,6 +154,7 @@ ttk.Button(
 frame_graphique = ttk.Frame(root)
 frame_graphique.pack(fill=tk.BOTH, expand=True)
 
-root.mainloop()
+# Charger automatiquement le CSV au démarrage
+charger_csv()
 
-charger_csv("fr-en-ips_lycees.csv")
+root.mainloop()
