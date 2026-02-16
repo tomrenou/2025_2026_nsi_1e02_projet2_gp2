@@ -119,14 +119,6 @@ root.geometry("1000x600")
 frame_controles = ttk.Frame(root)
 frame_controles.pack(pady=10)
 
-# Bouton charger CSV
-ttk.Button(
-    frame_controles,
-    text="Charger un CSV",
-    command=charger_csv
-).pack(side=tk.LEFT, padx=10)
-
-
 # Variable X
 x_var = tk.StringVar()
 ttk.Label(frame_controles, text="Variable X :").pack(side=tk.LEFT, padx=5)
@@ -163,3 +155,5 @@ frame_graphique = ttk.Frame(root)
 frame_graphique.pack(fill=tk.BOTH, expand=True)
 
 root.mainloop()
+
+charger_csv()
