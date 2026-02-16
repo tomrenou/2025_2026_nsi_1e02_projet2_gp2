@@ -156,4 +156,4 @@ frame_graphique.pack(fill=tk.BOTH, expand=True)
 
 root.mainloop()
 
-charger_csv()
+charger_csv("fr-en-ips_lycees.csv")
