@@ -5,12 +5,12 @@ from matplotlib.figure import Figure
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 
 
-# ------------------ VARIABLES GLOBALES ------------------
+# VARIABLES GLOBALES 
 
 df_global = None  # Stocke le DataFrame chargé
 
 
-# ------------------ FONCTIONS ------------------
+# FONCTIONS 
 
 def charger_csv():
     global df_global
@@ -110,7 +110,7 @@ def afficher_graphique():
     canvas.get_tk_widget().pack(fill=tk.BOTH, expand=True)
 
 
-# ------------------ INTERFACE ------------------
+# INTERFACE 
 
 root = tk.Tk()
 root.title("Analyse des lycées")
