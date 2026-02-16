@@ -19,9 +19,8 @@ class AppLycee:
 
         self.data = None  # ici on stockera le DataFrame Pandas
 
-        # =========================
         # Zone de contrôle en haut
-        # =========================
+       
         zone_haut = tk.Frame(fenetre)
         zone_haut.pack(pady=10)
 
@@ -63,15 +62,13 @@ class AppLycee:
         )
         bouton_graph.pack(side=tk.LEFT, padx=10)
 
-        # =========================
         # Tableau affichage données
-        # =========================
+        
         self.table = ttk.Treeview(fenetre)
         self.table.pack(expand=True, fill=tk.BOTH, padx=10, pady=10)
 
-    # -------------------------
     # Ouvrir fichier CSV
-    # -------------------------
+
     def ouvrir_fichier(self):
         fichier = filedialog.askopenfilename(
             title="Choisir un fichier CSV",
@@ -99,9 +96,8 @@ class AppLycee:
         # Affichage dans le tableau
         self.afficher_table(self.data)
 
-    # -------------------------
     # Filtrage par région
-    # -------------------------
+    
     def filtrer(self):
         if self.data is None:
             return
@@ -114,9 +110,8 @@ class AppLycee:
 
         self.afficher_table(data_filtre)
 
-    # -------------------------
     # Affichage du tableau
-    # -------------------------
+
     def afficher_table(self, data):
         self.table.delete(*self.table.get_children())
         self.table["columns"] = list(data.columns)
@@ -129,9 +124,8 @@ class AppLycee:
         for _, ligne in data.iterrows():
             self.table.insert("", tk.END, values=list(ligne))
 
-    # -------------------------
     # Statistiques
-    # -------------------------
+
     def stats(self):
         if self.data is None:
             return
@@ -149,9 +143,8 @@ class AppLycee:
             f"Taux de réussite moyen : {moyenne:.2f} %"
         )
 
-    # -------------------------
     # Graphique
-    # -------------------------
+    
     def graphique(self):
         if self.data is None:
             messagebox.showwarning("Attention", "Aucune donnée à afficher")
@@ -167,10 +160,8 @@ class AppLycee:
         # On envoie les données au contrôleur
         controller.afficher_graphique(self.fenetre, self.data)
 
-
-# =========================
 # Lancement du programme
-# =========================
+
 if __name__ == "__main__":
     fenetre = tk.Tk()
     app = AppLycee(fenetre)
