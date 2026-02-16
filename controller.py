@@ -15,10 +15,7 @@ df_global = None  # Stocke le DataFrame chargé
 def charger_csv():
     global df_global
 
-    chemin_csv = filedialog.askopenfilename(
-        title="Sélectionner un fichier CSV",
-        filetypes=[("Fichiers CSV", "*.csv")]
-    )
+    chemin_csv = "fr-en-ips_lycees.csv"
 
     if not chemin_csv:
         return
