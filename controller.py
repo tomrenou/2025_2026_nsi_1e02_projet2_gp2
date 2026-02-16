@@ -96,7 +96,7 @@ def afficher_graphique():
     if type_g == "line":
         ax.plot(df_grouped[colonne_x], df_grouped[colonne_y], marker="o")
     elif type_g == "bar":
-        ax.bar(df_grouped[colonne_x], df_grouped[colonne_y], color="skyblue")
+        ax.bar(df_grouped[colonne_x], df_grouped[colonne_y], color="green")
     elif type_g == "scatter":
         ax.scatter(df_grouped[colonne_x], df_grouped[colonne_y], color="red")
 
