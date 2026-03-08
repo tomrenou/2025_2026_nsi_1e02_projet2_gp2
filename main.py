@@ -8,6 +8,7 @@ from fenetre_bienvenue import fenetre_bienvenue
 # VARIABLES GLOBALES 
 
 df_global = None  # Stocke le DataFrame chargé
+fig_global = None  # Stocke le graphique actuel pour l'export
 
 # FONCTIONS 
 
@@ -87,6 +88,10 @@ def afficher_graphique():
     fig = Figure(figsize=(8, 4), dpi=100)
     ax = fig.add_subplot(111)
 
+    # Pour JPG/PNG
+    global fig_global
+    fig_global = fig
+
     type_g = type_graphique.get()
 
     if type_g == "line":
@@ -147,6 +152,31 @@ def exporter_donnees_graphique():
     except Exception as e:
         messagebox.showerror("Erreur", f"Impossible d'exporter : {e}")
 
+def exporter_graphique():
+    """
+    Exporte le graphique affiché en JPG ou PNG.
+    """
+    global fig_global
+
+    if fig_global is None:
+        messagebox.showwarning("Attention", "Aucun graphique à exporter.")
+        return
+
+    fichier = filedialog.asksaveasfilename(
+        defaultextension=".jpg",
+        filetypes=[("JPG files", "*.jpg"), ("PNG files", "*.png")],
+        title="Exporter le graphique"
+    )
+
+    if not fichier:
+        return  # l'utilisateur a annulé
+
+    try:
+        fig_global.savefig(fichier, dpi=300, bbox_inches="tight")
+        messagebox.showinfo("Succès", f"Graphique exporté avec succès dans {fichier}")
+    except Exception as e:
+        messagebox.showerror("Erreur", f"Impossible d'exporter le graphique : {e}")
+
 # INTERFACE 
 
 root = tk.Tk()
@@ -192,6 +222,9 @@ frame_graphique.pack(fill=tk.BOTH, expand=True)
 
 # Bouton exporter
 ttk.Button(frame_controles, text="Exporter graphique", command=exporter_donnees_graphique).pack(side=tk.LEFT, padx=10)
+
+# Bouton exporter en PNG/JPG (image)
+ttk.Button(frame_controles, text="Exporter graphique (image)", command=exporter_graphique).pack(side=tk.LEFT, padx=10)
 
 # --- OUVRIR LA FENETRE DE BIENVENUE D'ABORD ---
 fenetre_bienvenue(root)  # l’utilisateur doit cliquer "Commencer"
