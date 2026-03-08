@@ -9,7 +9,6 @@ from fenetre_bienvenue import fenetre_bienvenue
 
 df_global = None  # Stocke le DataFrame chargé
 
-
 # FONCTIONS 
 
 def charger_csv():

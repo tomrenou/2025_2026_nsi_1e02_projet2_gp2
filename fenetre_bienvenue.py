@@ -4,6 +4,7 @@ from tkinter import ttk
 def fenetre_bienvenue(root):
 
     fenetre = tk.Toplevel(root)
+    fenetre.grab_set()
     fenetre.title("Bienvenue")
     fenetre.geometry("500x300")
 
@@ -27,3 +28,5 @@ def fenetre_bienvenue(root):
     ttk.Label(frame, text=texte).pack(pady=10)
 
     ttk.Button(frame, text="Commencer", command=fenetre.destroy).pack(pady=10)
+
+    root.wait_window(fenetre)
