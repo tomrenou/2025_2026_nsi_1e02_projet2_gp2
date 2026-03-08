@@ -1,6 +1,3 @@
-Parfait ! Voilà ton README complet, prêt à **coller directement dans `README.md`**. Il est **entièrement en Markdown normal**, pas de bloc de code, donc GitHub va tout afficher correctement (titres, gras, tableaux, listes).
-
-````markdown
 # Analyse des Lycées Français - Projet NSI 1ère
 
 **Auteur : Tom Renou, Eliott Grougi et Esteban Gabilla**  
