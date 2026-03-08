@@ -40,10 +40,10 @@ def initialiser_listes_variables():
     if df_global is None:
         return
 
-    # 🔹 Colonnes catégorielles (pour X)
+    # Colonnes catégorielles (pour X)
     colonnes_categorielles = ["academie", "code_departement", "departement","nom_commune","secteur","type_lycee"]
 
-    # 🔹 Colonnes numériques (pour Y)
+    # Colonnes numériques (pour Y)
     colonnes_numeriques = ["IPS_voie_GT","IPS_voie_PRO","IPS_ensemble_GT-PRO"]
 
     combo_x["values"] = colonnes_categorielles
