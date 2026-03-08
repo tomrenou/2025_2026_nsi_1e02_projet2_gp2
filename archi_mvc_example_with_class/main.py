@@ -7,7 +7,7 @@ Architecture MVC (Modèle-Vue-Contrôleur)
 """
 
 from model import Model
-from controller import View
+from main import View
 from controler import Controller
 import tkinter as tk
 

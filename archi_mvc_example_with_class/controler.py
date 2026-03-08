@@ -1,5 +1,5 @@
 from model import Model
-from controller import View
+from main import View
 
 class Controller:
     def __init__(self, root):

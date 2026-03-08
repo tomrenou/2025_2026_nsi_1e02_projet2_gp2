@@ -7,7 +7,7 @@ texte_bienevnue = "Bienvenue chez Lycée & So, le site qui rend l'analyse des ly
 import tkinter as tk
 from tkinter import ttk, filedialog, messagebox
 import pandas as pd
-import controller  # fichier controller.py avec la fonction afficher_graphique
+import main  # fichier controller.py avec la fonction afficher_graphique
 
 
 # Application Lycée & So
@@ -158,7 +158,7 @@ class AppLycee:
             return
 
         # On envoie les données au contrôleur
-        controller.afficher_graphique(self.fenetre, self.data)
+        main.afficher_graphique(self.fenetre, self.data)
 
 # Lancement du programme
 
