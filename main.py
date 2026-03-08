@@ -221,7 +221,7 @@ frame_graphique = ttk.Frame(root)
 frame_graphique.pack(fill=tk.BOTH, expand=True)
 
 # Bouton exporter
-ttk.Button(frame_controles, text="Exporter graphique", command=exporter_donnees_graphique).pack(side=tk.LEFT, padx=10)
+ttk.Button(frame_controles, text="Exporter graphique (.csv ou .xlsx)", command=exporter_donnees_graphique).pack(side=tk.LEFT, padx=10)
 
 # Bouton exporter en PNG/JPG (image)
 ttk.Button(frame_controles, text="Exporter graphique (image)", command=exporter_graphique).pack(side=tk.LEFT, padx=10)
