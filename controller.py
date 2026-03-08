@@ -11,6 +11,8 @@ valeurs_filtre = None
 
 # --- CSV ---
 def charger_csv():
+    "Charge le fichier CSV des lycées et initialise les listes pour les combobox."
+    "Lit le fichier CSV, nettoie les colonnes et prépare les données pour l'affichage et les filtres."
     global df_global
     chemin_csv = "fr-en-ips_lycees.csv"
     if not chemin_csv:
@@ -22,8 +24,10 @@ def charger_csv():
     except Exception as e:
         messagebox.showerror("Erreur", f"Erreur lecture CSV : {e}")
 
-# --- Filtre ---
+# --- Filtre --- (permet de filtrer les valeurs du fichier CSV)
 def ouvrir_filtre(root, colonne_x):
+    "Ouvre une fenêtre pour filtrer les valeurs uniques d’une colonne X choisie."
+    "Crée une fenêtre avec une liste des valeurs uniques d'une colonne et permet de les sélectionner pour filtrer le graphique."
     global df_global, valeurs_filtre
     if df_global is None or not colonne_x:
         return
@@ -39,10 +43,14 @@ def ouvrir_filtre(root, colonne_x):
         liste.insert(tk.END, v)
 
     def tout_selectionner():
+        "Sélectionne automatiquement toutes les valeurs dans la liste du filtre."
+        "Permet de réinitialiser rapidement le filtre pour inclure toutes les données."
         liste.select_set(0, tk.END)
     ttk.Button(fenetre, text="Tout sélectionner", command=tout_selectionner).pack(pady=5)
 
     def valider_filtre():
+        "Applique le filtre choisi et ferme la fenêtre."
+        "Enregistre les valeurs sélectionnées dans une variable globale pour être utilisées lors de l'affichage du graphique."
         global valeurs_filtre
         selection = liste.curselection()
         valeurs_filtre = [liste.get(i) for i in selection]
@@ -50,8 +58,10 @@ def ouvrir_filtre(root, colonne_x):
 
     ttk.Button(fenetre, text="Valider", command=valider_filtre).pack(pady=10)
 
-# --- Graphique ---
+# --- Graphique --- (permet de générer les graphiques)
 def afficher_graphique(frame_graphique, colonne_x, colonne_y, type_g):
+    "Affiche un graphique basé sur les colonnes X et Y sélectionnées et applique le filtre si nécessaire."
+    "Crée le graphique correspondant aux colonnes choisies, applique les filtres sélectionnés, et affiche le résultat dans l'interface."
     global df_global, fig_global, valeurs_filtre
     if df_global is None:
         messagebox.showwarning("Attention", "Chargez un fichier CSV d'abord.")
@@ -92,8 +102,10 @@ def afficher_graphique(frame_graphique, colonne_x, colonne_y, type_g):
     canvas.draw()
     canvas.get_tk_widget().pack(fill=tk.BOTH, expand=True)
 
-# --- Export CSV / Excel ---
+# --- Export CSV / Excel --- 
 def exporter_donnees_graphique(colonne_x, colonne_y):
+    "Exporte les données filtrées et groupées au format CSV ou Excel."
+    "Prépare les données du graphique (avec filtres et moyennes), ouvre une fenêtre pour choisir le fichier et sauvegarde le résultat."
     global df_global
     if df_global is None:
         messagebox.showwarning("Attention", "Aucune donnée à exporter.")
@@ -126,6 +138,8 @@ def exporter_donnees_graphique(colonne_x, colonne_y):
 
 # --- Export image ---
 def exporter_graphique():
+    "Exporte le graphique actuel en image JPG ou PNG."
+    "Permet de sauvegarder le graphique affiché avec une haute résolution pour l'utiliser en présentation ou rapport."
     global fig_global
     if fig_global is None:
         messagebox.showwarning("Attention", "Aucun graphique à exporter.")
