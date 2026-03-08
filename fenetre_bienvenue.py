@@ -23,6 +23,7 @@ def fenetre_bienvenue(root):
 2. Choisissez une variable Y
 3. Sélectionnez un type de graphique
 4. Cliquez sur 'Afficher graphique'
+5. Puis cliquez sur 'Exporter données'
 """
 
     ttk.Label(frame, text=texte).pack(pady=10)
