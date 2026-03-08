@@ -108,6 +108,34 @@ def afficher_graphique():
     canvas.draw()
     canvas.get_tk_widget().pack(fill=tk.BOTH, expand=True)
 
+def exporter_donnees():
+    global df_global
+
+    if df_global is None:
+        messagebox.showwarning("Attention", "Aucune donnée à exporter.")
+        return
+
+    # On peut exporter soit le DataFrame complet, soit filtré/groupé si tu veux
+    df_a_exporter = df_global.copy()
+
+    # Ouvre la boîte de dialogue pour choisir le nom de fichier et le format
+    fichier = filedialog.asksaveasfilename(
+        defaultextension=".csv",
+        filetypes=[("CSV files", "*.csv"), ("Excel files", "*.xlsx")],
+        title="Exporter les données"
+    )
+
+    if not fichier:
+        return  # l'utilisateur a annulé
+
+    try:
+        if fichier.endswith(".csv"):
+            df_a_exporter.to_csv(fichier, index=False)
+        elif fichier.endswith(".xlsx"):
+            df_a_exporter.to_excel(fichier, index=False)
+        messagebox.showinfo("Succès", f"Données exportées avec succès dans {fichier}")
+    except Exception as e:
+        messagebox.showerror("Erreur", f"Impossible d'exporter : {e}")
 
 # INTERFACE 
 
@@ -151,6 +179,9 @@ ttk.Button(
 # Frame graphique
 frame_graphique = ttk.Frame(root)
 frame_graphique.pack(fill=tk.BOTH, expand=True)
+
+# Bouton exporter
+ttk.Button(frame_controles, text="Exporter données", command=exporter_donnees).pack(side=tk.LEFT, padx=10)
 
 # --- OUVRIR LA FENETRE DE BIENVENUE D'ABORD ---
 fenetre_bienvenue(root)  # l’utilisateur doit cliquer "Commencer"
