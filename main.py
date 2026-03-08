@@ -108,31 +108,41 @@ def afficher_graphique():
     canvas.draw()
     canvas.get_tk_widget().pack(fill=tk.BOTH, expand=True)
 
-def exporter_donnees():
+def exporter_donnees_graphique():
     global df_global
 
     if df_global is None:
         messagebox.showwarning("Attention", "Aucune donnée à exporter.")
         return
 
-    # On peut exporter soit le DataFrame complet, soit filtré/groupé si tu veux
-    df_a_exporter = df_global.copy()
+    colonne_x = x_var.get()
+    colonne_y = y_var.get()
 
-    # Ouvre la boîte de dialogue pour choisir le nom de fichier et le format
+    if not colonne_x or not colonne_y:
+        messagebox.showwarning("Attention", "Sélectionnez les variables X et Y avant d'exporter.")
+        return
+
+    # Préparer le DataFrame filtré/groupé exactement comme pour le graphique
+    df = df_global.copy()
+    df[colonne_y] = pd.to_numeric(df[colonne_y], errors="coerce")
+    df = df.dropna(subset=[colonne_x, colonne_y])
+    df_grouped = df.groupby(colonne_x)[colonne_y].mean().reset_index()
+
+    # Boîte de dialogue pour choisir le fichier
     fichier = filedialog.asksaveasfilename(
         defaultextension=".csv",
         filetypes=[("CSV files", "*.csv"), ("Excel files", "*.xlsx")],
-        title="Exporter les données"
+        title="Exporter les données filtrées"
     )
 
     if not fichier:
-        return  # l'utilisateur a annulé
+        return  # utilisateur a annulé
 
     try:
         if fichier.endswith(".csv"):
-            df_a_exporter.to_csv(fichier, index=False)
+            df_grouped.to_csv(fichier, index=False)
         elif fichier.endswith(".xlsx"):
-            df_a_exporter.to_excel(fichier, index=False)
+            df_grouped.to_excel(fichier, index=False)
         messagebox.showinfo("Succès", f"Données exportées avec succès dans {fichier}")
     except Exception as e:
         messagebox.showerror("Erreur", f"Impossible d'exporter : {e}")
@@ -181,7 +191,7 @@ frame_graphique = ttk.Frame(root)
 frame_graphique.pack(fill=tk.BOTH, expand=True)
 
 # Bouton exporter
-ttk.Button(frame_controles, text="Exporter données", command=exporter_donnees).pack(side=tk.LEFT, padx=10)
+ttk.Button(frame_controles, text="Exporter graphique", command=exporter_donnees_graphique).pack(side=tk.LEFT, padx=10)
 
 # --- OUVRIR LA FENETRE DE BIENVENUE D'ABORD ---
 fenetre_bienvenue(root)  # l’utilisateur doit cliquer "Commencer"
