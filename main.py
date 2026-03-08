@@ -3,7 +3,7 @@ from tkinter import ttk, filedialog, messagebox
 import pandas as pd
 from matplotlib.figure import Figure
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
-
+from fenetre_bienvenue import fenetre_bienvenue
 
 # VARIABLES GLOBALES 
 
@@ -157,4 +157,6 @@ frame_graphique.pack(fill=tk.BOTH, expand=True)
 # Charger automatiquement le CSV au démarrage
 charger_csv()
 
+
+fenetre_bienvenue(root)
 root.mainloop()
