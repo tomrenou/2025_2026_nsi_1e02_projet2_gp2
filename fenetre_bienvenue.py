@@ -13,7 +13,7 @@ def fenetre_bienvenue(root):
 
     titre = ttk.Label(
         frame,
-        text="Bienvenue dans l'application d'analyse des lycées",
+        text="Bienvenue dans Lycée & So l'application d'analyse des lycées",
         font=("Arial", 14, "bold")
     )
     titre.pack(pady=10)
