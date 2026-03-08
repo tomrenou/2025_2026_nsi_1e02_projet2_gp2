@@ -148,14 +148,14 @@ ttk.Button(
     command=afficher_graphique
 ).pack(side=tk.LEFT, padx=10)
 
-
 # Frame graphique
 frame_graphique = ttk.Frame(root)
 frame_graphique.pack(fill=tk.BOTH, expand=True)
 
-# Charger automatiquement le CSV au démarrage
+# --- OUVRIR LA FENETRE DE BIENVENUE D'ABORD ---
+fenetre_bienvenue(root)  # l’utilisateur doit cliquer "Commencer"
+
+# --- ENSUITE CHARGER LE CSV ET REMPLIR LES COMBOBOX ---
 charger_csv()
 
-
-fenetre_bienvenue(root)
 root.mainloop()
