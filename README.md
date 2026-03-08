@@ -1,3 +1,6 @@
+Parfait ! Voilà ton README complet, prêt à **coller directement dans `README.md`**. Il est **entièrement en Markdown normal**, pas de bloc de code, donc GitHub va tout afficher correctement (titres, gras, tableaux, listes).
+
+````markdown
 # Analyse des Lycées Français - Projet NSI 1ère
 
 **Auteur : Tom Renou, Eliott Grougi et Esteban Gabilla**  
@@ -36,3 +39,119 @@ L’objectif est de rendre l’analyse **simple, rapide et dynamique**, même po
 | `.gitignore` | Fichier pour ignorer les fichiers temporaires et caches (`__pycache__/`, exports CSV/Excel/images). |
 
 ---
+
+## Prérequis
+
+- **Python 3.10 ou supérieur**  
+- Installer les modules Python suivants :  
+
+```bash
+pip install pandas matplotlib
+````
+
+---
+
+## Utilisation de l’interface
+
+### Fenêtre de bienvenue
+
+* Une fenêtre s’ouvre avant l’interface principale.
+* L’utilisateur doit cliquer **Commencer** pour accéder à l’application.
+
+---
+
+### Sélection des variables
+
+| Axe   | Type         | Exemples                                                                              |
+| ----- | ------------ | ------------------------------------------------------------------------------------- |
+| **X** | Catégorielle | `academie`, `code_departement`, `departement`, `nom_commune`, `secteur`, `type_lycee` |
+| **Y** | Numérique    | `IPS_voie_GT`, `IPS_voie_PRO`, `IPS_ensemble_GT-PRO`                                  |
+
+* Les colonnes X sont affichées dans une **combobox**.
+* Les colonnes Y dans une autre combobox.
+* Certaines colonnes X peuvent être **filtrées dynamiquement** via un bouton dédié.
+
+---
+
+### Filtrage des données
+
+1. Sélectionner une colonne X filtrable (ex. `academie`).
+
+2. Cliquer sur **Filtrer X**.
+
+3. Une fenêtre s’ouvre avec toutes les valeurs uniques de la colonne.
+
+4. Options disponibles :
+
+   * **Tout sélectionner** → coche toutes les valeurs.
+   * **Sélection individuelle** → permet de choisir seulement certaines valeurs.
+
+5. Cliquer sur **Valider** pour appliquer le filtre.
+
+---
+
+### Affichage des graphiques
+
+1. Sélectionner le **type de graphique** :
+
+| Type      | Description                   |
+| --------- | ----------------------------- |
+| `bar`     | Histogramme par catégorie     |
+| `line`    | Courbe par catégorie          |
+| `scatter` | Nuage de points par catégorie |
+
+2. Cliquer sur **Afficher graphique**.
+3. Le graphique s’affiche dans la zone principale de l’interface.
+4. Les axes sont automatiquement configurés avec le nom de la colonne X et la moyenne de Y.
+5. L’axe X peut être **pivoté** pour une meilleure lisibilité.
+
+---
+
+### Exportation
+
+#### Export des données
+
+* Cliquer sur **Exporter graphique (.csv ou .xlsx)**.
+* Le fichier exporté contient les **données filtrées et groupées** exactement comme affiché sur le graphique.
+* Formats disponibles : `.csv` ou `.xlsx`.
+
+#### Export du graphique
+
+* Cliquer sur **Exporter graphique (image)**.
+* Le graphique est sauvegardé au format **JPG ou PNG**.
+* La résolution est automatiquement configurée (`dpi=300`).
+
+---
+
+## Détails techniques
+
+* **Architecture :**
+
+  * **Controller** → traitement des données, calcul des moyennes, filtrage et export.
+  * **View** → interface graphique Tkinter et widgets.
+  * **Main** → point d’entrée, initialisation des variables globales et liaison avec les fichiers controller et view.
+
+* **Export des données et graphiques :**
+
+  * Données : via Pandas (`to_csv()` / `to_excel()`).
+  * Graphiques : via Matplotlib (`savefig()`).
+
+---
+
+## Exemple d’utilisation
+
+1. Sélection X = `academie`, Y = `IPS_voie_GT`.
+2. Filtrer uniquement certaines académies.
+3. Choisir **graphique barre**.
+4. Cliquer sur **Afficher graphique** → le graphique apparaît.
+5. Exporter le graphique ou les données via les boutons dédiés.
+
+---
+
+## Bonnes pratiques
+
+* Toujours **valider le filtre** avant d’afficher le graphique.
+* Utiliser la fonction **Tout sélectionner** pour réinitialiser rapidement les filtres.
+
+```
+```
