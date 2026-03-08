@@ -1,168 +1,160 @@
-#main(code principal)
-
-
-
-texte_bienevnue = "Bienvenue chez Lycée & So, le site qui rend l'analyse des lycées beaucoup plus simple !"
-
 import tkinter as tk
 from tkinter import ttk, filedialog, messagebox
 import pandas as pd
-import controller  # fichier controller.py avec la fonction afficher_graphique
+from matplotlib.figure import Figure
+from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 
 
-# Application Lycée & So
-class AppLycee:
-    def __init__(self, fenetre):
-        self.fenetre = fenetre
-        self.fenetre.title("Lycée & So")
-        self.fenetre.geometry("900x500")
+# VARIABLES GLOBALES 
 
-        self.data = None  # ici on stockera le DataFrame Pandas
+df_global = None  # Stocke le DataFrame chargé
 
-        # Zone de contrôle en haut
-       
-        zone_haut = tk.Frame(fenetre)
-        zone_haut.pack(pady=10)
 
-        # Bouton ouvrir CSV
-        bouton_fichier = tk.Button(
-            zone_haut,
-            text="Ouvrir un fichier CSV",
-            command=self.ouvrir_fichier
-        )
-        bouton_fichier.pack(side=tk.LEFT, padx=10)
+# FONCTIONS 
 
-        # Filtre région
-        tk.Label(zone_haut, text="Région :").pack(side=tk.LEFT)
-        self.choix_region = tk.StringVar()
-        self.liste_regions = ttk.Combobox(
-            zone_haut,
-            textvariable=self.choix_region,
-            state="readonly",
-            width=20
-        )
-        self.liste_regions.pack(side=tk.LEFT, padx=5)
-        self.liste_regions.bind(
-            "<<ComboboxSelected>>",
-            lambda e: self.filtrer()
-        )
+def charger_csv():
+    global df_global
 
-        # Boutons stats et graphique
-        bouton_stats = tk.Button(
-            zone_haut,
-            text="Voir statistiques",
-            command=self.stats
-        )
-        bouton_stats.pack(side=tk.LEFT, padx=10)
+    chemin_csv = "fr-en-ips_lycees.csv"
 
-        bouton_graph = tk.Button(
-            zone_haut,
-            text="Voir graphique",
-            command=self.graphique
-        )
-        bouton_graph.pack(side=tk.LEFT, padx=10)
+    if not chemin_csv:
+        return
 
-        # Tableau affichage données
-        
-        self.table = ttk.Treeview(fenetre)
-        self.table.pack(expand=True, fill=tk.BOTH, padx=10, pady=10)
+    try:
+        df = pd.read_csv(chemin_csv, sep=';')
+        df.columns = df.columns.str.strip()
+        df_global = df
+    except Exception as e:
+        messagebox.showerror("Erreur", f"Erreur lecture CSV : {e}")
+        return
 
-    # Ouvrir fichier CSV
+    initialiser_listes_variables()
 
-    def ouvrir_fichier(self):
-        fichier = filedialog.askopenfilename(
-            title="Choisir un fichier CSV",
-            filetypes=[("Fichier CSV", "*.csv")]
-        )
 
-        if not fichier:
-            return
+def initialiser_listes_variables():
+    """
+    Initialise les menus déroulants après chargement du CSV
+    """
 
-        try:
-            self.data = pd.read_csv(fichier)
-        except Exception as e:
-            messagebox.showerror("Erreur", f"Impossible d'ouvrir le fichier\n{e}")
-            return
+    global df_global
 
-        # Nettoyage simple
-        self.data = self.data.drop_duplicates()
+    if df_global is None:
+        return
 
-        # Liste des régions
-        if "region" in self.data.columns:
-            regions = sorted(self.data["region"].dropna().unique())
-            self.liste_regions["values"] = ["Toutes"] + list(regions)
-            self.liste_regions.current(0)
+    # 🔹 Colonnes catégorielles (pour X)
+    colonnes_categorielles = ["academie", "code_departement", "departement","nom_commune","secteur","type_lycee"]
 
-        # Affichage dans le tableau
-        self.afficher_table(self.data)
+    # 🔹 Colonnes numériques (pour Y)
+    colonnes_numeriques = ["IPS_voie_GT","IPS_voie_PRO","IPS_ensemble_GT-PRO"]
 
-    # Filtrage par région
-    
-    def filtrer(self):
-        if self.data is None:
-            return
+    combo_x["values"] = colonnes_categorielles
+    combo_y["values"] = colonnes_numeriques
 
-        region = self.choix_region.get()
-        if region == "Toutes":
-            data_filtre = self.data
-        else:
-            data_filtre = self.data[self.data["region"] == region]
+    if colonnes_categorielles:
+        combo_x.current(0)
 
-        self.afficher_table(data_filtre)
+    if colonnes_numeriques:
+        combo_y.current(0)
 
-    # Affichage du tableau
 
-    def afficher_table(self, data):
-        self.table.delete(*self.table.get_children())
-        self.table["columns"] = list(data.columns)
-        self.table["show"] = "headings"
+def afficher_graphique():
+    global df_global
 
-        for col in data.columns:
-            self.table.heading(col, text=col)
-            self.table.column(col, width=120)
+    if df_global is None:
+        messagebox.showwarning("Attention", "Chargez un fichier CSV d'abord.")
+        return
 
-        for _, ligne in data.iterrows():
-            self.table.insert("", tk.END, values=list(ligne))
+    colonne_x = x_var.get()
+    colonne_y = y_var.get()
 
-    # Statistiques
+    if not colonne_x or not colonne_y:
+        messagebox.showwarning("Attention", "Sélectionnez les variables.")
+        return
 
-    def stats(self):
-        if self.data is None:
-            return
+    df = df_global.copy()
 
-        if "taux_reussite" not in self.data.columns:
-            messagebox.showwarning(
-                "Attention",
-                "Il n'y a pas de colonne 'taux_reussite'"
-            )
-            return
+    # Conversion numérique sécurisée
+    df[colonne_y] = pd.to_numeric(df[colonne_y], errors="coerce")
+    df = df.dropna(subset=[colonne_x, colonne_y])
 
-        moyenne = self.data["taux_reussite"].mean()
-        messagebox.showinfo(
-            "Statistiques",
-            f"Taux de réussite moyen : {moyenne:.2f} %"
-        )
+    # Groupby (moyenne par défaut)
+    df_grouped = df.groupby(colonne_x)[colonne_y].mean().reset_index()
 
-    # Graphique
-    
-    def graphique(self):
-        if self.data is None:
-            messagebox.showwarning("Attention", "Aucune donnée à afficher")
-            return
+    # Nettoyage ancien graphique
+    for widget in frame_graphique.winfo_children():
+        widget.destroy()
 
-        if "region" not in self.data.columns or "taux_reussite" not in self.data.columns:
-            messagebox.showwarning(
-                "Attention",
-                "Colonnes nécessaires : region, taux_reussite"
-            )
-            return
+    # Création figure
+    fig = Figure(figsize=(8, 4), dpi=100)
+    ax = fig.add_subplot(111)
 
-        # On envoie les données au contrôleur
-        controller.afficher_graphique(self.fenetre, self.data)
+    type_g = type_graphique.get()
 
-# Lancement du programme
+    if type_g == "line":
+        ax.plot(df_grouped[colonne_x], df_grouped[colonne_y], marker="o")
+    elif type_g == "bar":
+        ax.bar(df_grouped[colonne_x], df_grouped[colonne_y], color="green")
+    elif type_g == "scatter":
+        ax.scatter(df_grouped[colonne_x], df_grouped[colonne_y], color="red")
 
-if __name__ == "__main__":
-    fenetre = tk.Tk()
-    app = AppLycee(fenetre)
-    fenetre.mainloop()
+    ax.set_title(f"Moyenne {colonne_y} par {colonne_x}")
+    ax.set_xlabel(colonne_x)
+    ax.set_ylabel(f"Moyenne {colonne_y}")
+    ax.tick_params(axis='x', rotation=45)
+    ax.grid(True)
+
+    fig.tight_layout()
+
+    canvas = FigureCanvasTkAgg(fig, master=frame_graphique)
+    canvas.draw()
+    canvas.get_tk_widget().pack(fill=tk.BOTH, expand=True)
+
+
+# INTERFACE 
+
+root = tk.Tk()
+root.title("Analyse des lycées")
+root.geometry("1000x600")
+
+frame_controles = ttk.Frame(root)
+frame_controles.pack(pady=10)
+
+# Variable X
+x_var = tk.StringVar()
+ttk.Label(frame_controles, text="Variable X :").pack(side=tk.LEFT, padx=5)
+combo_x = ttk.Combobox(frame_controles, textvariable=x_var, state="readonly", width=18)
+combo_x.pack(side=tk.LEFT, padx=5)
+
+# Variable Y
+y_var = tk.StringVar()
+ttk.Label(frame_controles, text="Variable Y :").pack(side=tk.LEFT, padx=5)
+combo_y = ttk.Combobox(frame_controles, textvariable=y_var, state="readonly", width=18)
+combo_y.pack(side=tk.LEFT, padx=5)
+
+# Type graphique
+type_graphique = tk.StringVar(value="bar")
+ttk.Label(frame_controles, text="Type :").pack(side=tk.LEFT, padx=5)
+ttk.Combobox(
+    frame_controles,
+    textvariable=type_graphique,
+    values=["bar", "line", "scatter"],
+    state="readonly",
+    width=10
+).pack(side=tk.LEFT, padx=5)
+
+# Bouton afficher
+ttk.Button(
+    frame_controles,
+    text="Afficher graphique",
+    command=afficher_graphique
+).pack(side=tk.LEFT, padx=10)
+
+
+# Frame graphique
+frame_graphique = ttk.Frame(root)
+frame_graphique.pack(fill=tk.BOTH, expand=True)
+
+# Charger automatiquement le CSV au démarrage
+charger_csv()
+
+root.mainloop()
