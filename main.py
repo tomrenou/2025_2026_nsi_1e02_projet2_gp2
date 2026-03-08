@@ -75,6 +75,10 @@ def ouvrir_filtre():
 
     for v in valeurs:
         liste.insert(tk.END, v)
+        
+    def tout_selectionner():
+        liste.select_set(0, tk.END)
+    ttk.Button(fenetre, text="Tout sélectionner", command=tout_selectionner).pack(pady=5)
 
     def valider_filtre():
         global valeurs_filtre
