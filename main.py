@@ -9,6 +9,7 @@ from fenetre_bienvenue import fenetre_bienvenue
 
 df_global = None  # Stocke le DataFrame chargé
 fig_global = None  # Stocke le graphique actuel pour l'export
+valeurs_filtre = None # Filtre en plus
 
 # FONCTIONS 
 
@@ -56,6 +57,32 @@ def initialiser_listes_variables():
     if colonnes_numeriques:
         combo_y.current(0)
 
+def ouvrir_filtre():
+    global df_global
+
+    colonne_x = x_var.get()
+
+    if df_global is None or not colonne_x:
+        return
+
+    fenetre = tk.Toplevel(root)
+    fenetre.title("Filtrer les valeurs")
+
+    valeurs = sorted(df_global[colonne_x].dropna().unique())
+
+    liste = tk.Listbox(fenetre, selectmode="multiple", width=40, height=20)
+    liste.pack(padx=10, pady=10)
+
+    for v in valeurs:
+        liste.insert(tk.END, v)
+
+    def valider_filtre():
+        global valeurs_filtre
+        selection = liste.curselection()
+        valeurs_filtre = [liste.get(i) for i in selection]
+        fenetre.destroy()
+
+    ttk.Button(fenetre, text="Valider", command=valider_filtre).pack(pady=10)
 
 def afficher_graphique():
     global df_global
@@ -72,6 +99,10 @@ def afficher_graphique():
         return
 
     df = df_global.copy()
+    global valeurs_filtre
+
+    if valeurs_filtre:
+        df = df[df[colonne_x].isin(valeurs_filtre)]
 
     # Conversion numérique sécurisée
     df[colonne_y] = pd.to_numeric(df[colonne_y], errors="coerce")
@@ -191,6 +222,11 @@ x_var = tk.StringVar()
 ttk.Label(frame_controles, text="Variable X :").pack(side=tk.LEFT, padx=5)
 combo_x = ttk.Combobox(frame_controles, textvariable=x_var, state="readonly", width=18)
 combo_x.pack(side=tk.LEFT, padx=5)
+
+# Sous variable de X
+combo_x.pack(side=tk.LEFT, padx=5)
+
+ttk.Button(frame_controles, text="Filtrer X", command=ouvrir_filtre).pack(side=tk.LEFT, padx=5)
 
 # Variable Y
 y_var = tk.StringVar()
